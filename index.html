@@ -1,0 +1,320 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Uma carta para o meu amor ❤️</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Georgia, serif;
+      color: #593b40;
+      background: #fff9f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+    }
+
+    .pagina {
+      width: 100%;
+      max-width: 650px;
+      text-align: center;
+    }
+
+    .etiqueta {
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      letter-spacing: 3px;
+      color: #a76b75;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: clamp(30px, 7vw, 48px);
+      font-weight: normal;
+      font-style: italic;
+      margin: 22px 0 12px;
+    }
+
+    .introducao {
+      color: #886d70;
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    .envelope {
+      position: relative;
+      width: 240px;
+      height: 155px;
+      margin: 45px auto 24px;
+      cursor: pointer;
+      perspective: 800px;
+    }
+
+    .base {
+      position: absolute;
+      inset: 0;
+      background: #e8a9ad;
+      border-radius: 4px;
+      box-shadow: 0 12px 25px #b57e7725;
+    }
+
+    .aba {
+      position: absolute;
+      inset: 0;
+      background: #f2c6c5;
+      clip-path: polygon(0 0, 100% 0, 50% 65%);
+      transform-origin: top;
+      transition: transform 0.7s ease;
+      z-index: 3;
+    }
+
+    .frente {
+      position: absolute;
+      inset: 0;
+      background: #edb5b7;
+      clip-path: polygon(0 0, 50% 58%, 100% 0, 100% 100%, 0 100%);
+      z-index: 2;
+    }
+
+    .coracao {
+      position: absolute;
+      top: 48%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #a53f55;
+      font-size: 32px;
+      z-index: 4;
+      transition: opacity 0.3s;
+    }
+
+    .carta-papel {
+      position: absolute;
+      width: 85%;
+      height: 85%;
+      left: 7.5%;
+      top: 8%;
+      background: #fffdfb;
+      border-radius: 3px;
+      transition: transform 0.8s ease;
+      z-index: 1;
+    }
+
+    .envelope.aberto .aba {
+      transform: rotateX(180deg);
+      z-index: 0;
+    }
+
+    .envelope.aberto .carta-papel {
+      transform: translateY(-85px);
+      z-index: 2;
+    }
+
+    .envelope.aberto .coracao {
+      opacity: 0;
+    }
+
+    button {
+      border: 0;
+      padding: 14px 27px;
+      border-radius: 30px;
+      background: #b65f70;
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+      font-family: Arial, sans-serif;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    button:hover {
+      background: #98485a;
+      transform: translateY(-2px);
+    }
+
+    .mensagem {
+      display: none;
+      margin-top: 38px;
+      padding: 30px 24px;
+      background: white;
+      border: 1px solid #f0dedb;
+      border-radius: 8px;
+      text-align: left;
+      line-height: 1.9;
+      animation: aparecer 0.8s ease;
+    }
+
+    .mensagem h2 {
+      text-align: center;
+      font-size: 30px;
+      font-weight: normal;
+      font-style: italic;
+    }
+
+    .assinatura {
+      text-align: right;
+      color: #a34d62;
+      font-style: italic;
+      margin-top: 28px;
+    }
+
+    .galeria {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .galeria img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      border-radius: 5px;
+      background: #f5e7e3;
+    }
+
+    .legenda {
+      text-align: center;
+      color: #98767a;
+      font-size: 13px;
+      font-style: italic;
+      margin-top: 20px;
+    }
+
+    footer {
+      margin-top: 32px;
+      color: #a78a8b;
+      font-size: 12px;
+    }
+
+    @keyframes aparecer {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 400px) {
+      .galeria img {
+        height: 150px;
+      }
+
+      .mensagem {
+        padding: 22px 17px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="pagina">
+
+    <div class="etiqueta">♡ Uma coisa especial para ti</div>
+
+    <h1>Tenho algo para te dizer...</h1>
+
+    <p class="introducao">
+      Há coisas que não cabem numa mensagem.<br>
+      Por isso, preparei-te esta pequena surpresa.
+    </p>
+
+    <div class="envelope" id="envelope"
+         role="button" tabindex="0"
+         aria-label="Abrir envelope">
+      <div class="base"></div>
+      <div class="carta-papel"></div>
+      <div class="aba"></div>
+      <div class="frente"></div>
+      <div class="coracao">♥</div>
+    </div>
+
+    <button id="abrir">Abrir a minha carta ♡</button>
+
+    <section class="mensagem" id="mensagem">
+      <h2>Para ti, meu amor</h2>
+
+      <p>
+        Meu amor,
+      </p>
+
+      <p>
+        Só queria
+      </p>
+
+      <p>
+        Quero que saibas que adoro os nossos momentos,
+        as nossas conversas, as nossas brincadeiras e
+        todas as pequenas coisas que tornam a nossa
+        história especial.
+      </p>
+
+      <p>
+        Obrigada por fazeres parte da minha vida.
+        Espero que ainda tenhamos muitas memórias
+        bonitas para criar juntos. ❤️
+      </p>
+
+      <p class="assinatura">
+        Com muito amor,<br>
+        a tua pessoa ❤️
+      </p>
+
+      <div class="galeria">
+        <!-- Substitui pelos nomes das tuas fotografias -->
+        <img src="foto1.jpg" alt="Uma memória nossa">
+        <img src="foto2.jpg" alt="Um momento especial">
+        <img src="foto3.jpg" alt="Nós os dois">
+        <img src="foto4.jpg" alt="Mais uma memória nossa">
+      </div>
+
+      <p class="legenda">
+        As minhas memórias favoritas são contigo. ♡
+      </p>
+    </section>
+
+    <footer>Feito com amor, especialmente para ti ♥</footer>
+  </main>
+
+  <script>
+    const envelope = document.getElementById("envelope");
+    const botao = document.getElementById("abrir");
+    const mensagem = document.getElementById("mensagem");
+
+    function abrirCarta() {
+      envelope.classList.add("aberto");
+      mensagem.style.display = "block";
+      botao.textContent = "A minha carta, só para ti ♥";
+      botao.disabled = true;
+
+      setTimeout(() => {
+        mensagem.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }, 450);
+    }
+
+    botao.addEventListener("click", abrirCarta);
+
+    envelope.addEventListener("click", abrirCarta);
+
+    envelope.addEventListener("keydown", function(evento) {
+      if (evento.key === "Enter" || evento.key === " ") {
+        evento.preventDefault();
+        abrirCarta();
+      }
+    });
+  </script>
+</body>
+</html>
